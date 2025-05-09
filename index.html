@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VTU Premium Dashboard</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      text-align: center;
+      padding: 50px 20px;
+    }
+    .login-box {
+      background: #fff;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      border-radius: 16px;
+      padding: 30px;
+      max-width: 400px;
+      margin: 20px auto;
+    }
+    .login-box img {
+      width: 120px;
+      margin-bottom: 20px;
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    button {
+      background: linear-gradient(145deg, #6a11cb, #2575fc);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 24px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s ease;
+    }
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    /* Vertical Feature Layout */
+    .feature-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .card {
+      background: #fff;
+      width: 90%;
+      max-width: 600px;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 10px 10px 30px rgba(0,0,0,0.2);
+      transition: 0.3s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .quiz-card {
+      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      color: #000;
+    }
+
+    /* Modal Styles */
+    #subjectModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+    #subjectModalContent {
+      background: #fefefe;
+      border-radius: 20px;
+      padding: 30px;
+      width: 90%;
+      max-width: 650px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      position: relative;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.9);}
+      to {opacity: 1; transform: scale(1);}
+    }
+    #subjectModalContent h2 {
+      margin-top: 0;
+      font-size: 24px;
+      color: #333;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 26px;
+      cursor: pointer;
+      color: #888;
+    }
+    .section {
+      margin: 20px 0;
+      text-align: left;
+    }
+    .section h3 {
+      margin-bottom: 10px;
+      color: #444;
+    }
+    .module-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .module-buttons a {
+      text-decoration: none;
+      background: linear-gradient(to right, #6dd5ed, #2193b0);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: 0.3s ease;
+    }
+    .module-buttons a:hover {
+      background: linear-gradient(to right, #2193b0, #6dd5ed);
+      transform: scale(1.05);
+    }
+    .modal-button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      background: #2575fc;
+      color: white;
+      border-radius: 8px;
+      margin: 8px 0;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    .modal-button:hover {
+      background: #6a11cb;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Login Box -->
+    <div class="login-box" id="loginBox">
+      <img src="1.jpeg" alt="VTU Logo">
+      <h2>VTU Premium Login</h2>
+      <input type="text" id="username" placeholder="Enter Username" />
+      <input type="password" id="password" placeholder="Enter Password" />
+      <button onclick="login()">Login</button>
+    </div>
+
+    <!-- Features Section -->
+    <div id="features" style="display:none;">
+      <h1>VTU Premium Access</h1>
+      <div class="feature-column">
+        <div class="card quiz-card">📝 Quiz: 18CIV14 - F&A</div>
+        <div class="card quiz-card">📝 Quiz: 18MAT11 - Math</div>
+        <div class="card quiz-card">📝 Quiz: 18PHY12 - Physics</div>
+        <div class="card quiz-card">📝 Quiz: 18CHE13 - Chemistry</div>
+        <div class="card quiz-card">📝 Quiz: 18ELE14 - Electrical</div>
+        <div class="card quiz-card">📝 Quiz: 18ME15 - Mechanics</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="subjectModal">
+    <div id="subjectModalContent">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h2 id="subjectTitle">Subject Name</h2>
+
+      <div class="section">
+        <h3>📌 Most Important Questions</h3>
+        <div class="module-buttons">
+          <a href="#">Module 1</a>
+          <a href="#">Module 2</a>
+          <a href="#">Module 3</a>
+          <a href="#">Module 4</a>
+          <a href="#">Module 5</a>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>📄 Model Papers</h3>
+        <button class="modal-button" onclick="alert('Model Papers coming soon')">View Model Papers</button>
+      </div>
+
+      <div class="section">
+        <h3>📘 Model Papers with Solutions</h3>
+        <button class="modal-button" onclick="alert('Solutions coming soon')">View Solutions</button>
+      </div>
+
+      <div class="section">
+        <h3>📝 Quiz</h3>
+        <button class="modal-button" onclick="alert('Launching Quiz...')">Start Quiz</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function login() {
+      const u = document.getElementById("username").value.trim();
+      const p = document.getElementById("password").value.trim();
+
+      const validUsers = {
+        "vtuuser1": "vtu",
+        "vtuuser2": "vtu"
+      };
+
+      if (validUsers[u] === p) {
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("features").style.display = "block";
+      } else {
+        alert("Access Denied. Please enter valid username and password.");
+      }
+    }
+
+    const subjects = {
+      "18CIV14": "F&A",
+      "18MAT11": "Mathematics",
+      "18PHY12": "Physics",
+      "18CHE13": "Chemistry",
+      "18ELE14": "Electrical",
+      "18ME15": "Mechanics"
+    };
+
+    document.querySelectorAll('.quiz-card').forEach(card => {
+      card.onclick = () => {
+        const code = card.textContent.match(/18[A-Z]{3}\d{2}/)?.[0];
+        const name = subjects[code] || "Subject";
+        document.getElementById('subjectTitle').textContent = `${code} - ${name}`;
+        document.getElementById('subjectModal').style.display = 'flex';
+      };
+    });
+
+    function closeModal() {
+      document.getElementById('subjectModal').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
