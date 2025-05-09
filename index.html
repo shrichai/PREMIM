@@ -4,10 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>VTU Premium Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     body {
       background: linear-gradient(to right, #e0eafc, #cfdef3);
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 0;
     }
@@ -29,6 +30,10 @@
       border-radius: 50%;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
+    .login-box h2 {
+      font-weight: 600;
+      color: #333;
+    }
     input {
       width: 80%;
       padding: 10px;
@@ -44,14 +49,12 @@
       border-radius: 8px;
       padding: 12px 24px;
       cursor: pointer;
-      font-weight: bold;
+      font-weight: 600;
       transition: 0.3s ease;
     }
     button:hover {
       transform: scale(1.05);
     }
-
-    /* Vertical Feature Layout */
     .feature-column {
       display: flex;
       flex-direction: column;
@@ -59,7 +62,6 @@
       gap: 20px;
       margin-top: 40px;
     }
-
     .card {
       background: #fff;
       width: 90%;
@@ -69,18 +71,15 @@
       box-shadow: 10px 10px 30px rgba(0,0,0,0.2);
       transition: 0.3s ease;
       cursor: pointer;
+      font-weight: 500;
     }
-
     .card:hover {
       transform: translateY(-5px);
     }
-
     .quiz-card {
       background: linear-gradient(to right, #ffecd2, #fcb69f);
       color: #000;
     }
-
-    /* Modal Styles */
     #subjectModal {
       display: none;
       position: fixed;
@@ -92,7 +91,7 @@
       justify-content: center;
     }
     #subjectModalContent {
-      background: #fefefe;
+      background: #fff;
       border-radius: 20px;
       padding: 30px;
       width: 90%;
@@ -104,11 +103,6 @@
     @keyframes fadeIn {
       from {opacity: 0; transform: scale(0.9);}
       to {opacity: 1; transform: scale(1);}
-    }
-    #subjectModalContent h2 {
-      margin-top: 0;
-      font-size: 24px;
-      color: #333;
     }
     .close-btn {
       position: absolute;
@@ -141,7 +135,6 @@
       transition: 0.3s ease;
     }
     .module-buttons a:hover {
-      background: linear-gradient(to right, #2193b0, #6dd5ed);
       transform: scale(1.05);
     }
     .modal-button {
@@ -152,7 +145,7 @@
       color: white;
       border-radius: 8px;
       margin: 8px 0;
-      font-weight: bold;
+      font-weight: 600;
       cursor: pointer;
       transition: 0.3s ease;
     }
@@ -163,7 +156,6 @@
 </head>
 <body>
   <div class="container">
-    <!-- Login Box -->
     <div class="login-box" id="loginBox">
       <img src="1.jpeg" alt="VTU Logo">
       <h2>VTU Premium Login</h2>
@@ -172,21 +164,20 @@
       <button onclick="login()">Login</button>
     </div>
 
-    <!-- Features Section -->
     <div id="features" style="display:none;">
       <h1>VTU Premium Access</h1>
       <div class="feature-column">
-        <div class="card quiz-card">📝 Quiz: 18CIV14 - F&A</div>
-        <div class="card quiz-card">📝 Quiz: 18MAT11 - Math</div>
-        <div class="card quiz-card">📝 Quiz: 18PHY12 - Physics</div>
-        <div class="card quiz-card">📝 Quiz: 18CHE13 - Chemistry</div>
-        <div class="card quiz-card">📝 Quiz: 18ELE14 - Electrical</div>
-        <div class="card quiz-card">📝 Quiz: 18ME15 - Mechanics</div>
+        <div class="card quiz-card" onclick="openModal('18CIV14')">📝 Quiz: 18CIV14 - F&A</div>
+        <div class="card quiz-card" onclick="openModal('18MAT11')">📝 Quiz: 18MAT11 - Math</div>
+        <div class="card quiz-card" onclick="openModal('18PHY12')">📝 Quiz: 18PHY12 - Physics</div>
+        <div class="card quiz-card" onclick="openModal('18CHE13')">📝 Quiz: 18CHE13 - Chemistry</div>
+        <div class="card quiz-card" onclick="openModal('18ELE14')">📝 Quiz: 18ELE14 - Electrical</div>
+        <div class="card quiz-card" onclick="openModal('18ME15')">📝 Quiz: 18ME15 - Mechanics</div>
       </div>
     </div>
   </div>
 
-  <!-- Modal -->
+  <!-- Subject Modal -->
   <div id="subjectModal">
     <div id="subjectModalContent">
       <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -194,28 +185,22 @@
 
       <div class="section">
         <h3>📌 Most Important Questions</h3>
-        <div class="module-buttons">
-          <a href="#">Module 1</a>
-          <a href="#">Module 2</a>
-          <a href="#">Module 3</a>
-          <a href="#">Module 4</a>
-          <a href="#">Module 5</a>
-        </div>
+        <div class="module-buttons" id="moduleLinks"></div>
       </div>
 
       <div class="section">
         <h3>📄 Model Papers</h3>
-        <button class="modal-button" onclick="alert('Model Papers coming soon')">View Model Papers</button>
+        <button class="modal-button" id="modelPapersBtn">View Model Papers</button>
       </div>
 
       <div class="section">
         <h3>📘 Model Papers with Solutions</h3>
-        <button class="modal-button" onclick="alert('Solutions coming soon')">View Solutions</button>
+        <button class="modal-button" id="solutionsBtn">View Solutions</button>
       </div>
 
       <div class="section">
         <h3>📝 Quiz</h3>
-        <button class="modal-button" onclick="alert('Launching Quiz...')">Start Quiz</button>
+        <button class="modal-button" id="quizBtn">Start Quiz</button>
       </div>
     </div>
   </div>
@@ -224,12 +209,10 @@
     function login() {
       const u = document.getElementById("username").value.trim();
       const p = document.getElementById("password").value.trim();
-
       const validUsers = {
         "vtuuser1": "vtu",
         "vtuuser2": "vtu"
       };
-
       if (validUsers[u] === p) {
         document.getElementById("loginBox").style.display = "none";
         document.getElementById("features").style.display = "block";
@@ -238,26 +221,118 @@
       }
     }
 
-    const subjects = {
-      "18CIV14": "F&A",
-      "18MAT11": "Mathematics",
-      "18PHY12": "Physics",
-      "18CHE13": "Chemistry",
-      "18ELE14": "Electrical",
-      "18ME15": "Mechanics"
-    };
-
-    document.querySelectorAll('.quiz-card').forEach(card => {
-      card.onclick = () => {
-        const code = card.textContent.match(/18[A-Z]{3}\d{2}/)?.[0];
-        const name = subjects[code] || "Subject";
-        document.getElementById('subjectTitle').textContent = `${code} - ${name}`;
-        document.getElementById('subjectModal').style.display = 'flex';
-      };
-    });
-
     function closeModal() {
       document.getElementById('subjectModal').style.display = 'none';
+    }
+
+    function openModal(code) {
+      const subjects = {
+        "18CIV14": {
+          name: "F&A",
+          path: "civ",
+          modules: [
+            "https://drive.google.com/file/d/1iOZKCVp0ZrZu2aMv7cmPHiyd90aEjgWx/view?usp=drive_link",
+            "https://example.com/civ/module2.html",
+            "https://example.com/civ/module3.html",
+            "https://example.com/civ/module4.html",
+            "https://example.com/civ/module5.html"
+          ],
+          modelPaper: "https://example.com/civ/modelpapers.html",
+          solution: "https://example.com/civ/solutions.html",
+          quiz: "https://example.com/civ/quiz.html"
+        },
+        "18MAT11": {
+          name: "Math",
+          path: "math",
+          modules: [
+            "https://drive.google.com/file/d/1_yKp-yyqgzXYhBZNsM27quz3qSA7M9jd/view?usp=drive_link",
+            "https://example.com/civ/module2.html",
+            "https://example.com/civ/module3.html",
+            "https://example.com/civ/module4.html",
+            "https://example.com/civ/module5.html"
+          ],
+          modelPaper: "https://example.com/math/modelpapers.html",
+          solution: "https://example.com/math/solutions.html",
+          quiz: "https://example.com/math/quiz.html"
+        },
+        "18PHY12": {
+          name: "Physics",
+          path: "phy",
+          modules: [
+            "https://example.com/civ/module1.html",
+            "https://example.com/civ/module2.html",
+            "https://example.com/civ/module3.html",
+            "https://example.com/civ/module4.html",
+            "https://example.com/civ/module5.html"
+],
+          modelPaper: "https://example.com/phy/modelpapers.html",
+          solution: "https://example.com/phy/solutions.html",
+          quiz: "https://example.com/phy/quiz.html"
+        },
+        "18CHE13": {
+          name: "Chemistry",
+          path: "che",
+          modules: [
+            "https://example.com/civ/module1.html",
+            "https://example.com/civ/module2.html",
+            "https://example.com/civ/module3.html",
+            "https://example.com/civ/module4.html",
+            "https://example.com/civ/module5.html"
+],
+          modelPaper: "https://example.com/che/modelpapers.html",
+          solution: "https://example.com/che/solutions.html",
+          quiz: "https://example.com/che/quiz.html"
+        },
+        "18ELE14": {
+          name: "Electrical",
+          path: "ele",
+          modules: [
+            "https://example.com/civ/module1.html",
+            "https://example.com/civ/module2.html",
+            "https://example.com/civ/module3.html",
+            "https://example.com/civ/module4.html",
+            "https://example.com/civ/module5.html"
+],
+          modelPaper: "https://example.com/ele/modelpapers.html",
+          solution: "https://example.com/ele/solutions.html",
+          quiz: "https://example.com/ele/quiz.html"
+        },
+        "18ME15": {
+          name: "Mechanics",
+          path: "me",
+          modules: [
+            "https://drive.google.com/file/d/131e2w2oVam5S6yPiQOb3NLKwZoqLD0Cj/view?usp=drive_link",
+            "https://example.com/civ/module2.html",
+            "https://example.com/civ/module3.html",
+            "https://example.com/civ/module4.html",
+            "https://example.com/civ/module5.html"
+],
+          modelPaper: "https://example.com/me/modelpapers.html",
+          solution: "https://example.com/me/solutions.html",
+          quiz: "https://example.com/me/quiz.html"
+        }
+      };
+
+      const subject = subjects[code];
+      if (!subject) return;
+
+      document.getElementById('subjectTitle').textContent = `${code} - ${subject.name}`;
+      
+      const moduleLinks = document.getElementById('moduleLinks');
+      moduleLinks.innerHTML = '';
+      subject.modules.forEach((url, index) => {
+        const a = document.createElement('a');
+        a.href = url;
+        a.target = '_blank';
+        a.textContent = `Module ${index + 1}`;
+        moduleLinks.appendChild(a);
+      });
+
+      document.getElementById('modelPapersBtn').onclick = () => window.open(subject.modelPaper, '_blank');
+      document.getElementById('solutionsBtn').onclick = () => window.open(subject.solution, '_blank');
+      document.getElementById('quizBtn').onclick = () => window.open(subject.quiz, '_blank');
+
+      document.getElementById('subjectModal').style.display = 'flex';
     }
   </script>
 </body>
